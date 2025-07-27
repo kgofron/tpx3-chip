@@ -79,12 +79,22 @@ std::vector<std::string> extract_pixel_configs(const json& j) {
     return configs;
 }
 
-int main() {
+int main(int argc, char* argv[]) {
+    // Check command line arguments
+    if (argc != 3) {
+        std::cerr << "Usage: " << argv[0] << " <file1> <file2>" << std::endl;
+        std::cerr << "Example: " << argv[0] << " masks/maskN.srvl masks/mask256_511_25_1.srvl" << std::endl;
+        return 1;
+    }
+    
+    std::string file1_path = argv[1];
+    std::string file2_path = argv[2];
+    
     try {
         // Read the first JSON file
-        std::ifstream file1("masks/maskN.srvl");
+        std::ifstream file1(file1_path);
         if (!file1.is_open()) {
-            std::cerr << "Error: Could not open masks/maskN.srvl" << std::endl;
+            std::cerr << "Error: Could not open " << file1_path << std::endl;
             return 1;
         }
         
@@ -93,9 +103,9 @@ int main() {
         file1.close();
         
         // Read the second JSON file
-        std::ifstream file2("masks/mask256_511_25_1.srvl");
+        std::ifstream file2(file2_path);
         if (!file2.is_open()) {
-            std::cerr << "Error: Could not open masks/mask256_511_25_1.srvl" << std::endl;
+            std::cerr << "Error: Could not open " << file2_path << std::endl;
             return 1;
         }
         
@@ -107,8 +117,8 @@ int main() {
         std::vector<std::string> configs1 = extract_pixel_configs(json1);
         std::vector<std::string> configs2 = extract_pixel_configs(json2);
         
-        std::cout << "Found " << configs1.size() << " PixelConfig entries in maskN.srvl" << std::endl;
-        std::cout << "Found " << configs2.size() << " PixelConfig entries in mask256_511_25_1.srvl" << std::endl;
+        std::cout << "Found " << configs1.size() << " PixelConfig entries in " << file1_path << std::endl;
+        std::cout << "Found " << configs2.size() << " PixelConfig entries in " << file2_path << std::endl;
         
         if (configs1.size() != configs2.size()) {
             std::cout << "Warning: Different number of PixelConfig entries found!" << std::endl;
@@ -124,8 +134,8 @@ int main() {
             std::vector<uint8_t> bytes1 = base64_decode(configs1[i]);
             std::vector<uint8_t> bytes2 = base64_decode(configs2[i]);
             
-            std::cout << "Decoded " << bytes1.size() << " bytes from maskN.srvl" << std::endl;
-            std::cout << "Decoded " << bytes2.size() << " bytes from mask256_511_25_1.srvl" << std::endl;
+            std::cout << "Decoded " << bytes1.size() << " bytes from " << file1_path << std::endl;
+            std::cout << "Decoded " << bytes2.size() << " bytes from " << file2_path << std::endl;
             
             if (bytes1.size() != bytes2.size()) {
                 std::cout << "Warning: Different byte lengths!" << std::endl;

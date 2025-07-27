@@ -32,13 +32,18 @@ This C++ program compares the "PixelConfig" sections of two JSON files and ident
 
 ## Usage
 
-Run the program from the project root directory:
+Run the program with two JSON files as arguments:
 ```bash
-./pixel_config_compare
+./pixel_config_compare <file1> <file2>
+```
+
+Example:
+```bash
+./pixel_config_compare masks/maskN.srvl masks/mask256_511_25_1.srvl
 ```
 
 The program will:
-1. Read both JSON files from the `masks/` directory
+1. Read both JSON files specified as arguments
 2. Extract all "PixelConfig" values
 3. Decode the base64-encoded strings to bytes
 4. Compare corresponding bytes and identify bit differences
