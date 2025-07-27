@@ -74,3 +74,9 @@ Differences found:
   Byte    2: 0x03 vs 0x02 (bits 0 differ)
   ...
 ```
+
+## wget
+
+Reading mask
+- wget http://localhost:8081/Detector/Chips/0/PixelConfig
+- wget http://localhost:8081/*
