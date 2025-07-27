@@ -36,6 +36,7 @@
 *.exe
 *.out
 *.app
+pixel_config_compare
 
 # debug information files
 *.dwo
