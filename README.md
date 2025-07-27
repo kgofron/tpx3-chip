@@ -80,3 +80,6 @@ Differences found:
 Reading mask
 - wget http://localhost:8081/Detector/Chips/0/PixelConfig
 - wget http://localhost:8081/*
+
+The Base64 encoding is used, with 6 bits for ASCII character
+ - https://en.wikipedia.org/wiki/Base64
